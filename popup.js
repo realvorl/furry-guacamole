@@ -11,10 +11,6 @@ window.onload = function() {
   console.log("onload" + Date())
 }
 
-$('#body-container').css({
-  '-webkit-transform': 'translateY('+height+')'
-});
-
 function onChangeFun(){
   console.log("on otr off: " + $("#blendin").attr("checked"));
 };

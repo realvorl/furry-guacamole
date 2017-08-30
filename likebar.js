@@ -3,7 +3,7 @@ $(function() {
     createCookie("ld-show", "false", 365);
 
     $("#ranger").change(function(){
-      $("#threshold").val($(this).val())
+      $("#threshold").text($(this).val() + "%")
     })
 
     var dlikeButton = $("#watch8-sentiment-actions > span > span:nth-child(2) > button");
@@ -48,18 +48,41 @@ $(function() {
 
     $("#remFrList").click(function(){
       var option = $("#list > option:selected");
-      option.remove();
+      if($("#list").children().length > 1) option.remove();
     });
 
     var Li = document.createElement("li");
-    Li.innerHTML = '<li id="likeExtensionInjected" class="guide-channel guide-notification-item overflowable-list-item" role="menuitem"><a class="guide-item yt-uix-sessionlink yt-valign spf-link" href="#" title="AutoLike"><span class="yt-valign-container"><button class="yt-uix-button yt-uix-button-size-default yt-uix-button-opacity yt-uix-button-has-icon no-icon-markup like-button-renderer-like-button like-button-renderer-like-button-unclicked" style="padding: 0;"></button><span class="display-name  no-count"><span>Autolike ON</span></span></span></a></li>';
+    Li.innerHTML = '<li id="likeExtensionInjected" class="guide-channel guide-notification-item overflowable-list-item" role="menuitem"><a style="padding-bottom: 5px;" class="guide-item yt-uix-sessionlink yt-valign spf-link" href="#" title="AutoLike"><span class="yt-valign-container"><button id="autoLikeEnable" class="thumb guide-likes-playlist-icon yt-sprite" style="padding: 0;"></button><button id="autoLikeSettings" class="yt-uix-button-icon yt-uix-button-icon-icon-account-settings yt-sprite" ></button><span class="display-name  no-count"><span>AutoLIKE</span><span id="autoLikeFeedback"> OFF</span></span></span></a></li>';
     console.log(Li);
 
     $("button.yt-uix-button").click(function(){
       if (document.getElementById("likeExtensionInjected") === null) {
         $("ul.guide-user-links")[0].append(Li);
-        $("#likeExtensionInjected").click(function(){
-            alert("it works!");
+        $("#autoLikeEnable").click(function(){
+           var toggle = $(this).css("backgroundColor");
+           if(toggle == "rgba(0, 0, 0, 0)") {
+             $(this).css("backgroundColor","red");
+             $("#autoLikeFeedback").text(" ON");
+           } else {
+             $(this).css("backgroundColor","");
+             $("#autoLikeFeedback").text(" OFF");
+           }
+        });
+        $("#autoLikeSettings").click(function(){
+           var toggle = $("#maindiv").css("display");
+           if(toggle == "none") {
+             $("#maindiv").show("slow","swing", function(){
+               $('#body-container').css({
+                 '-webkit-transform': 'translateY(36px)'
+               });
+             });
+           } else {
+             $("#maindiv").hide("slow","swing",function(){
+               $('#body-container').css({
+                 '-webkit-transform': 'translateY(0px)'
+               });
+             });
+           }
         });
       };
     });
