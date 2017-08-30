@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "Show some love, Over 80%",
+  "description": "Will autolike videos you watched over 80% of their runtime",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "icon.png"   
+  },
+  "permissions":[
+    "cookies",
+    "tabs",
+    "activeTab"
+  ],
+  "content_scripts":[
+    {
+      "matches":["http://www.youtube.com/*","https://www.youtube.com/*"],
+      "css":["popup.css"],
+      "js":["jquery.js", "w3.js", "likebar.js", "popup.js"]
+    }
+  ],
+  "web_accessible_resources":[
+    "likebar.html",
+    "popup.css",
+    "popup.js"
+  ]
+}

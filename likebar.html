@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+  </head>
+  <body>
+    <div class="toppler" id="maindiv" style="width: 100%;">
+      <button class="like" id="likeExtButtonDelegate"> Like </button>
+      <button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button>
+      <span>10%</span>
+      <input type="range" id="ranger" min="10" max="90" value="80" step="5"/>
+      <span>90%</span>
+      <input type="text" id="threshold" style="padding-left: 10px;" size="2"/>
+      <button class="set" id="setThreshold">set</button>
+      <select id="list">
+
+      </select>
+      <button class="set" id="addToList"> + </button>
+      <button class="set" id="remFrList"> - </button>
+    </div>
+    <!--video src="video.mp4" controls height="240" width="480" poster="posterimage.jpg">
+    </video-->
+  </body>
+</html>
+<script src="likebar.js" type="text/javascript"></script>
