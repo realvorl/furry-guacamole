@@ -15,9 +15,9 @@ $(document).ready(function() {
 
     $("#likeExtButtonDelegate").click(function(){
       var videoPlayer = $("video").get(0);
-      var likeButton = $("#watch8-sentiment-actions > span > span:nth-child(1) > button");
+      var likeButton = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a");
       var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
-      likeButton.click();
+      likeButton[0].click();
       log("","liked at: " + percentage + " %");
     });
 
@@ -32,7 +32,7 @@ $(document).ready(function() {
     $("#addToList").click(function(){
       var cookieName = "LikeList";
       var list = $("#list");
-      var valueToAdd = $(".yt-user-info > a").text();
+      var valueToAdd = $("#owner-name > a").text();
       list.append(new Option(valueToAdd));
       var listFromCookie = readCookie(cookieName);
       if (listFromCookie) {

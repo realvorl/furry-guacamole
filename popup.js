@@ -19,9 +19,16 @@ if (chrome.extension){
         if(toggle == "none") {
           $("#maindiv").show("slow","swing", function(){
             $('ytd-app').css({
-              '-webkit-transform': 'translateY(36px)'
+              '-webkit-transform': 'translateY(40px)'
             });
           });
+          $("input#search").focus(function(){
+            $("#maindiv").hide("slow","swing", function(){
+              $('ytd-app').css({
+                '-webkit-transform': 'translateY(0)'
+              });
+            });
+          })
         }
       })
     })

@@ -6,16 +6,18 @@
   </head>
   <body>
     <div class="toppler" id="maindiv" style="width: 100%; display: none; padding-left: 20px;">
-      <!--button class="like" id="likeExtButtonDelegate"> Like </button>
-      <button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button-->
-      <table style="position: absolute; left: 25%; border: 1px solid #d3d3d3; padding-top: 3px;">
+      <!--button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button-->
+      <table style="position: absolute; left: 25%; padding-top: 3px;">
         <tr>
+          <td>
+            <button class="like" id="likeExtButtonDelegate"> Like </button>
+          </td>
           <td class="ytext" style="padding-right: 10px; padding-left: 10px; background-color: #f1f1f1">
             <span > threshold </span>
           </td>
           <td>
               <input type="range" id="ranger" min="10" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
-              <span type="text" id="threshold" class="ytext" style="padding-left: 10px;" readonly size="2"> 80% </span>
+              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;" readonly size="2"> 80% </span>
           </td>
           <td style="padding-right: 20px;"></td>
           <td style="padding-right: 5px;">
