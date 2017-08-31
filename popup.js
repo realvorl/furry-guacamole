@@ -10,30 +10,6 @@ if (chrome.extension){
   $(document).ready(function(){
     log("p","document ready")
     $('body').append(mainAnchor());
-    $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4)").ready(function(){
-      log("p", "hardest thing ever in the history of FUCK!");
-      $("img#img").ready(function(){
-          log("p","img ready man!");
-          $("img#img").click(function(){
-            log("p", "hardest thing ever in the history of FUCK!");
-            var toggle = $("#maindiv").css("display");
-            if(toggle == "none") {
-              $("#maindiv").show("slow","swing", function(){
-                $('ytd-app').css({
-                  '-webkit-transform': 'translateY(40px)'
-                });
-              });
-              $("input#search").focus(function(){
-                $("#maindiv").hide("slow","swing", function(){
-                  $('ytd-app').css({
-                    '-webkit-transform': 'translateY(0)'
-                  });
-                });
-              })
-            }
-          })
-      })
-    })
   });
 }
 

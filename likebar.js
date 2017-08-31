@@ -19,10 +19,7 @@ $(document).ready(function() {
         $("#maindiv").css("background-color","#ffffff");
         $("#maindiv .toggleD").prop("disabled", false);
       }
-      var videoPlayer = $("video").get(0);
-      var likeButton = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a");
-      var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
-      likeButton[0].click();
+      //likeButton[0].click();
       log("","liked at: " + percentage + " %");
     });
 
@@ -56,6 +53,11 @@ $(document).ready(function() {
       if($("#list").children().length > 1) option.remove();
     });
 });
+
+function calculatePercentage(){
+  var videoPlayer = $("video").get(0);
+  return videoPlayer.currentTime / videoPlayer.duration * 100;
+}
 
 function createCookie(name, value, days) {
   if (days) {
