@@ -6,27 +6,35 @@ if (chrome.extension){
   $('body').prepend(div);
   w3.includeHTML();
   log("profile icon: ", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button"));
-  $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click();
-}
 
-$(window).on('load', function() {
-  log("","onload")
-  //log("", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").innerHTML);
-})
+  $(document).ready(function(){
+    log("p","document ready")
+
+    $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4)").ready(function(){
+      log("p", "hardest thing ever in the history of FUCK!");
+      $(this).click();
+      $(this).click(function(){
+        log("p", "hardest thing ever in the history of FUCK!");
+        var toggle = $("#maindiv").css("display");
+        if(toggle == "none") {
+          $("#maindiv").show("slow","swing", function(){
+            $('ytd-app').css({
+              '-webkit-transform': 'translateY(36px)'
+            });
+          });
+        }
+      })
+    })
+
+    log("p","document ready CLICK ON PROFILE")
+    $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click(function(){
+      log("profile-click","!")
+    });
+  });
+}
 
 function onChangeFun(){
   log("","on otr off: " + $("#blendin").attr("checked"));
 };
 
 log("","popup.js - loaded!");
-
-
-function log(tag, o){
-  var date = new Date();
-  var tstamp = date.getMinutes() +":"+ date.getSeconds() + ":" + date.getMilliseconds();
-  if (o instanceof Object) {
-    console.log("###popup#"+tstamp+"> " + tag +": "+ Object.keys(o))
-    return;
-  }
-  console.log("###popup#"+tstamp+"> " + tag +": "+ o)
-}

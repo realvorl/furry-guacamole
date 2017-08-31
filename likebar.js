@@ -1,5 +1,5 @@
 
-$(function() {
+$(document).ready(function() {
     createCookie("ld-show", "false", 365);
 
     $("#ranger").change(function(){
@@ -54,6 +54,19 @@ $(function() {
     var Li = document.createElement("li");
     Li.innerHTML = '<li id="likeExtensionInjected" class="guide-channel guide-notification-item overflowable-list-item" role="menuitem"><a style="padding-bottom: 5px;" class="guide-item yt-uix-sessionlink yt-valign spf-link" href="#" title="AutoLike"><span class="yt-valign-container"><button id="autoLikeEnable" class="thumb guide-likes-playlist-icon yt-sprite" style="padding: 0;"></button><button id="autoLikeSettings" class="yt-uix-button-icon yt-uix-button-icon-icon-account-settings yt-sprite" ></button><span class="display-name  no-count"><span>AutoLIKE</span><span id="autoLikeFeedback"> OFF</span></span></span></a></li>';
     log("generated LI",Li);
+    //
+    // $(window).load(function(){
+    //   log("","load")
+    //   $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click()
+    //   $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click(function(){
+    //     log("profile-click","!")
+    //   })
+    // });
+    //
+    // $(window).on('load', function() {
+    //   log("","on >load<")
+    //   //log("", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").innerHTML);
+    // })
 
     $("#guide-button").click(function(){
       if (document.getElementById("likeExtensionInjected") === null) {
@@ -89,6 +102,7 @@ $(function() {
 
 });
 
+
 function createCookie(name, value, days) {
   if (days) {
     var date = new Date();
@@ -118,10 +132,10 @@ function log(tag, o){
   var date = new Date();
   var tstamp = date.getMinutes() +":"+ date.getSeconds() + ":" + date.getMilliseconds();
   if (o instanceof Object) {
-    console.log("###popup#"+tstamp+"> " + tag +": "+ Object.keys(o))
+    console.log("###likebar#"+tstamp+"> " + tag +": "+ Object.keys(o))
     return;
   }
-  console.log("###popup#"+tstamp+"> " + tag +": "+ o)
+  console.log("###likebar#"+tstamp+"> " + tag +": "+ o)
 }
 
 log("", "likebar.js - loaded!");
