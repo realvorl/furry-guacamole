@@ -5,38 +5,34 @@
     <link rel="stylesheet" type="text/css" href="popup.css">
   </head>
   <body>
-    <div class="toppler" id="maindiv" style="width: 100%; display: none; padding-left: 20px;">
+    <div class="toppler" id="maindiv" style="width: 100%; display: none; padding-bottom: 5px;">
       <!--button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button-->
-      <table style="position: absolute; left: 25%; padding-top: 3px;">
+      <table style="position: absolute; left: 5%; padding-top: 3px;">
         <tr>
           <td>
             <button class="like" id="likeExtButtonDelegate"> Like </button>
           </td>
-          <td class="ytext" style="padding-right: 10px; padding-left: 10px; background-color: #f1f1f1">
+          <td class="ytext" style="padding-right: 10px; padding-left: 10px; background-color: #f1f1f1; border-radius:8px 0 0 0;">
             <span > threshold </span>
           </td>
           <td>
-              <input type="range" id="ranger" min="10" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
-              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;" readonly size="2"> 80% </span>
+              <input class="toggleD" type="range" id="ranger" min="10" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
+              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; border-radius:0 8px 0 0;" readonly size="2"> 80% </span>
           </td>
           <td style="padding-right: 20px;"></td>
           <td style="padding-right: 5px;">
-              <button class="set" id="addToList"> + </button>
-              <select class="ytext" id="list" >
+              <button class="set toggleD" id="addToList" style="border-radius:8px 0 0 0;"> + </button>
+              <select class="ytext toggleD" id="list" style="height: 24px; margin: -5px;">
                 <option disabled selected value> add / remove </option>
               </select>
-              <button class="set" id="remFrList"> - </button>
+              <button class="set toggleD" id="remFrList" style="border-radius:0 8px 0 0;"> - </button>
           </td>
           <td class="ytext" style="padding-left: 10px; padding-right: 10px; background-color: #f1f1f1">
             <span > creators </span>
           </td>
         </tr>
       </table>
-
-
       <!--button class="set" id="setThreshold">set</button-->
-
-
     </div>
     <!--video src="video.mp4" controls height="240" width="480" poster="posterimage.jpg">
     </video-->

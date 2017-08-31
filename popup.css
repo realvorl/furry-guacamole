@@ -13,8 +13,11 @@
   height: 35px;
   background-color: #FFFFFF;
   color: #252525;
-  border: 1px dashed #f1f1f1;
   z-index: 10;
+}
+
+td {
+  border-radius: 6px;
 }
 
 button{
@@ -30,18 +33,21 @@ button{
 button.like {
   font-weight: bold;
   padding: 3px 2px;
+  border-radius: 6px;
   color: white;
-  background-color: #4CAF50;
+  background-color: #DF101C;
 }
 button.dislike {
   font-weight: bold;
+  border-radius: 6px;
   padding: 3px 2px;
   color: white;
-  background-color: #AF504C;
+  background-color: #B1B1B1;
 }
 button.set {
   font-weight: bold;
   padding: 3px 10px ;
+  border-radius: 6px;
   color: black;
   background-color: #f1f1f1;
 }

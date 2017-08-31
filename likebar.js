@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     createCookie("ld-show", "false", 365);
 
@@ -6,14 +5,20 @@ $(document).ready(function() {
       $("#threshold").text($(this).val() + "%")
     })
 
-    var dlikeButton = $("#watch8-sentiment-actions > span > span:nth-child(2) > button");
-    var ddislikeButton = $("#watch8-sentiment-actions > span > span:nth-child(4) > button");
-
     $("#setThreshold").click(function(){
       createCookie("threshold", $("#ranger").val(), 365)
     })
 
     $("#likeExtButtonDelegate").click(function(){
+      $(this).toggleClass("like");
+      $(this).toggleClass("dislike");
+      if($(this).hasClass("dislike")){
+        $("#maindiv").css("background-color","#f1f1f1");
+        $("#maindiv .toggleD").prop("disabled", true);
+      } else {
+        $("#maindiv").css("background-color","#ffffff");
+        $("#maindiv .toggleD").prop("disabled", false);
+      }
       var videoPlayer = $("video").get(0);
       var likeButton = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a");
       var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
@@ -50,58 +55,7 @@ $(document).ready(function() {
       var option = $("#list > option:selected");
       if($("#list").children().length > 1) option.remove();
     });
-
-    var Li = document.createElement("li");
-    Li.innerHTML = '<li id="likeExtensionInjected" class="guide-channel guide-notification-item overflowable-list-item" role="menuitem"><a style="padding-bottom: 5px;" class="guide-item yt-uix-sessionlink yt-valign spf-link" href="#" title="AutoLike"><span class="yt-valign-container"><button id="autoLikeEnable" class="thumb guide-likes-playlist-icon yt-sprite" style="padding: 0;"></button><button id="autoLikeSettings" class="yt-uix-button-icon yt-uix-button-icon-icon-account-settings yt-sprite" ></button><span class="display-name  no-count"><span>AutoLIKE</span><span id="autoLikeFeedback"> OFF</span></span></span></a></li>';
-    log("generated LI",Li);
-    //
-    // $(window).load(function(){
-    //   log("","load")
-    //   $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click()
-    //   $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click(function(){
-    //     log("profile-click","!")
-    //   })
-    // });
-    //
-    // $(window).on('load', function() {
-    //   log("","on >load<")
-    //   //log("", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").innerHTML);
-    // })
-
-    $("#guide-button").click(function(){
-      if (document.getElementById("likeExtensionInjected") === null) {
-        $("div#items")[0].append(Li);
-        $("#autoLikeEnable").click(function(){
-           var toggle = $(this).css("backgroundColor");
-           if(toggle == "rgba(0, 0, 0, 0)") {
-             $(this).css("backgroundColor","red");
-             $("#autoLikeFeedback").text(" ON");
-           } else {
-             $(this).css("backgroundColor","");
-             $("#autoLikeFeedback").text(" OFF");
-           }
-        });
-        $("#autoLikeSettings").click(function(){
-           var toggle = $("#maindiv").css("display");
-           if(toggle == "none") {
-             $("#maindiv").show("slow","swing", function(){
-               $('ytd-app').css({
-                 '-webkit-transform': 'translateY(36px)'
-               });
-             });
-           } else {
-             $("#maindiv").hide("slow","swing",function(){
-               $('ytd-app').css({
-                 '-webkit-transform': 'translateY(0px)'
-               });
-             });
-           }
-        });
-      };
-    });
-
 });
-
 
 function createCookie(name, value, days) {
   if (days) {
@@ -122,7 +76,7 @@ function readCookie(name) {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
-}
+}setThreshold
 
 function updateCookie(name){
   var cookie = readCookie(name);
