@@ -32,7 +32,7 @@ function mainAnchor(){
   oLink.style.opacity = ".5";
 
   oLink.onclick = function(){
-    log("p", "hardest thing ever in the history of FUCK!");
+    log("p", "inflating layout");
     var toggle = $("#maindiv").css("display");
     if(toggle == "none") {
       $("#maindiv").show("slow","swing", function(){
