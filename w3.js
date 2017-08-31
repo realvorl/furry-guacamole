@@ -324,7 +324,7 @@ w3.displayObject = function (id, data) {
         (i === repeatObj.length) ? arr[j].parentNode.replaceChild(rowClone, arr[j]) : arr[j].parentNode.insertBefore(rowClone, arr[j]);
       }
     } else {
-      console.log("w3-repeat must be an array. " + repeat + " is not an array.");
+      log("","w3-repeat must be an array. " + repeat + " is not an array.");
       continue;
     }
   }

@@ -18,7 +18,7 @@ $(function() {
       var likeButton = $("#watch8-sentiment-actions > span > span:nth-child(1) > button");
       var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
       likeButton.click();
-      console.log("liked at: " + percentage + " %");
+      log("","liked at: " + percentage + " %");
     });
 
     $("#disLikeExtButtonDelegate").click(function(){
@@ -26,7 +26,7 @@ $(function() {
       var dislikeButton = $("#watch8-sentiment-actions > span > span:nth-child(3) > button");
       var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
       dislikeButton.click();
-      console.log("disliked at: " + percentage + " %");
+      log("","disliked at: " + percentage + " %");
     });
 
     $("#addToList").click(function(){
@@ -53,11 +53,11 @@ $(function() {
 
     var Li = document.createElement("li");
     Li.innerHTML = '<li id="likeExtensionInjected" class="guide-channel guide-notification-item overflowable-list-item" role="menuitem"><a style="padding-bottom: 5px;" class="guide-item yt-uix-sessionlink yt-valign spf-link" href="#" title="AutoLike"><span class="yt-valign-container"><button id="autoLikeEnable" class="thumb guide-likes-playlist-icon yt-sprite" style="padding: 0;"></button><button id="autoLikeSettings" class="yt-uix-button-icon yt-uix-button-icon-icon-account-settings yt-sprite" ></button><span class="display-name  no-count"><span>AutoLIKE</span><span id="autoLikeFeedback"> OFF</span></span></span></a></li>';
-    console.log(Li);
+    log("generated LI",Li);
 
-    $("button.yt-uix-button").click(function(){
+    $("#guide-button").click(function(){
       if (document.getElementById("likeExtensionInjected") === null) {
-        $("ul.guide-user-links")[0].append(Li);
+        $("div#items")[0].append(Li);
         $("#autoLikeEnable").click(function(){
            var toggle = $(this).css("backgroundColor");
            if(toggle == "rgba(0, 0, 0, 0)") {
@@ -72,13 +72,13 @@ $(function() {
            var toggle = $("#maindiv").css("display");
            if(toggle == "none") {
              $("#maindiv").show("slow","swing", function(){
-               $('#body-container').css({
+               $('ytd-app').css({
                  '-webkit-transform': 'translateY(36px)'
                });
              });
            } else {
              $("#maindiv").hide("slow","swing",function(){
-               $('#body-container').css({
+               $('ytd-app').css({
                  '-webkit-transform': 'translateY(0px)'
                });
              });
@@ -114,4 +114,14 @@ function updateCookie(name){
   var cookie = readCookie(name);
 }
 
-console.log("likebar.js - loaded!");
+function log(tag, o){
+  var date = new Date();
+  var tstamp = date.getMinutes() +":"+ date.getSeconds() + ":" + date.getMilliseconds();
+  if (o instanceof Object) {
+    console.log("###popup#"+tstamp+"> " + tag +": "+ Object.keys(o))
+    return;
+  }
+  console.log("###popup#"+tstamp+"> " + tag +": "+ o)
+}
+
+log("", "likebar.js - loaded!");

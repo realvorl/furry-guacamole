@@ -5,14 +5,28 @@ if (chrome.extension){
 
   $('body').prepend(div);
   w3.includeHTML();
+  log("profile icon: ", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button"));
+  $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").click();
 }
 
-window.onload = function() {
-  console.log("onload" + Date())
-}
+$(window).on('load', function() {
+  log("","onload")
+  //log("", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button").innerHTML);
+})
 
 function onChangeFun(){
-  console.log("on otr off: " + $("#blendin").attr("checked"));
+  log("","on otr off: " + $("#blendin").attr("checked"));
 };
 
-console.log("popup.js - loaded!");
+log("","popup.js - loaded!");
+
+
+function log(tag, o){
+  var date = new Date();
+  var tstamp = date.getMinutes() +":"+ date.getSeconds() + ":" + date.getMilliseconds();
+  if (o instanceof Object) {
+    console.log("###popup#"+tstamp+"> " + tag +": "+ Object.keys(o))
+    return;
+  }
+  console.log("###popup#"+tstamp+"> " + tag +": "+ o)
+}
