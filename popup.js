@@ -5,11 +5,8 @@ if (chrome.extension){
 
   $('body').prepend(div);
   w3.includeHTML();
-  log("profile icon: ", $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4) > button"));
-
   $(document).ready(function(){
-    log("p","document ready")
-    $('body').append(mainAnchor());
+      $('body').append(mainAnchor());
   });
 }
 
@@ -32,7 +29,6 @@ function mainAnchor(){
   oLink.style.opacity = ".5";
 
   oLink.onclick = function(){
-    log("p", "inflating layout");
     var toggle = $("#maindiv").css("display");
     if(toggle == "none") {
       $("#maindiv").show("slow","swing", function(){
@@ -54,9 +50,6 @@ function mainAnchor(){
         });
       });
     }
-
   }
   return oLink;
 }
-
-log("","popup.js - loaded!");

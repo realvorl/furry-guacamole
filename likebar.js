@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     $("#ranger").change(function(){
       var rangeValue = $("#ranger").val();
-      $("#threshold").val(rangeValue);
+      $("#threshold").text(rangeValue + "%");
       localStorage.setItem("threshold", rangeValue)
     })
 
@@ -42,13 +42,13 @@ $(document).ready(function() {
     $("#addToList").click(function(){
       var list = $("#list");
       var valueToAdd = getCreatorName();
-      if (valueToAdd.length >= 21) {
-        valueToAdd = valueToAdd.substring(0,21) + "...";
-      }
       if (!creatorIsWhitelisted(valueToAdd)) {
         addCreatorToWhitelist(valueToAdd);
       } else {
         return;
+      }
+      if (valueToAdd.length >= 21) {
+        valueToAdd = valueToAdd.substring(0,21) + "...";
       }
       var activeOption = new Option(valueToAdd);
       activeOption.setAttribute("selected", "true");
@@ -71,9 +71,13 @@ function populateSelect(){
       var creators = currentList.split(";");
       $.each(creators, function(index, value){
         if (value) {
-          var option = new Option(value);
+          var truncatedValue = value;
+          if (truncatedValue.length >= 21) {
+            truncatedValue = truncatedValue.substring(0,21) + "...";
+          }
+          var option = new Option(truncatedValue);
           select.append(option);
-          console.log(index + ": " + value);
+          //console.log(index + ": " + value);
         }
       });
     }

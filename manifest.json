@@ -1,18 +1,13 @@
 {
   "manifest_version": 2,
 
-  "name": "Show some love, Over 80%",
+  "name": "Show some love and autolike.",
   "description": "Will autolike videos you watched over 80% of their runtime",
   "version": "1.0",
 
   "browser_action": {
    "default_icon": "icon.png"
   },
-  "permissions":[
-    "cookies",
-    "tabs",
-    "activeTab"
-  ],
   "content_scripts":[
     {
       "matches":["http://www.youtube.com/*","https://www.youtube.com/*"],
