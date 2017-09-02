@@ -12,21 +12,10 @@ if (chrome.extension){
 
 function mainAnchor(){
   var oLink = document.createElement("a");
-  oLink.style.position = "absolute";
-  oLink.id = "thea";
-  oLink.style.left = "0";
-  oLink.style.top = "0";
-  oLink.style.height = "20px";
-  oLink.style.width = "20px";
-  oLink.style.fontSize = "20px";
-  oLink.style.widthWeight = "bolder";
+
+  oLink.title = "show / hide settings"
   oLink.text = "❤";
-  oLink.style.backgroundColor = "#FFFFFF";
-  oLink.style.color = "#1f1f1f";
-  oLink.style.borderRadius = "20px";
-  oLink.style.zIndex = "99999";
-  oLink.style.cursor = "pointer";
-  oLink.style.opacity = ".5";
+  oLink.id = "thea";
 
   oLink.onclick = function(){
     var toggle = $("#maindiv").css("display");

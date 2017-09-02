@@ -10,14 +10,15 @@
       <table style="position: absolute; left: 5%; padding-top: 3px;">
         <tr>
           <td>
-            <button class="dislike" id="likeExtButtonDelegate"> Like </button>
+            <button class="likeOFF" id="likeExtButtonDelegate" style="width: 120px"> AutoLIKE OFF </button>
           </td>
           <td class="ytext" style="padding-right: 10px; padding-left: 10px; background-color: #f1f1f1; border-radius:8px 0 0 0;">
             <span > threshold </span>
           </td>
           <td>
               <input class="toggleD" type="range" id="ranger" min="50" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
-              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; border-radius:0 8px 0 0;" readonly size="2"> 80% </span>
+              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; border-radius:8px 0 0 0;" readonly size="2"> 80% </span>
+              <span type="text" id="progress" class="ytext" style="padding: 5px 10px;  background-color: #f1a1a1; border-radius:0 8px 0 0;" readonly size="2"> --% </span>
           </td>
           <td style="padding-right: 20px;"></td>
           <td style="padding-right: 5px;">
