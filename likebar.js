@@ -1,17 +1,16 @@
 $(document).ready(function() {
-    createCookie("ld-show", "false", 365);
     var likeinterval = null;
     var moreLogging = false;
+
+    populateSelect();
 
     $("#maindiv").css("background-color","#f1f1f1");
     $("#maindiv .toggleD").prop("disabled", true);
 
     $("#ranger").change(function(){
-      $("#threshold").text($(this).val() + "%")
-    })
-
-    $("#setThreshold").click(function(){
-      createCookie("threshold", $("#ranger").val(), 365)
+      var rangeValue = $("#ranger").val();
+      $("#threshold").val(rangeValue);
+      localStorage.setItem("threshold", rangeValue)
     })
 
     $("#likeExtButtonDelegate").click(function(){
@@ -41,9 +40,11 @@ $(document).ready(function() {
     });
 
     $("#addToList").click(function(){
-      var cookieName = "LikeList";
       var list = $("#list");
       var valueToAdd = getCreatorName();
+      if (valueToAdd.length >= 21) {
+        valueToAdd = valueToAdd.substring(0,21) + "...";
+      }
       if (!creatorIsWhitelisted(valueToAdd)) {
         addCreatorToWhitelist(valueToAdd);
       } else {
@@ -61,8 +62,27 @@ $(document).ready(function() {
     });
 });
 
+function populateSelect(){
+  var select = $("#list");
+  var elemCount = select.children().length;
+  if(elemCount == 1){
+    var currentList = localStorage.creatorList;
+    if(currentList){
+      var creators = currentList.split(";");
+      $.each(creators, function(index, value){
+        if (value) {
+          var option = new Option(value);
+          select.append(option);
+          console.log(index + ": " + value);
+        }
+      });
+    }
+  }
+}
+
 function getCreatorName(){
-  var linkname = $("#top-row > ytd-video-owner-renderer > a")[0].href;
+  //#owner-name > a
+  var linkname = $("#owner-name > a")[0].text;
   var fromIdx = linkname.lastIndexOf("/") + 1;
   return linkname.substring(fromIdx, linkname.length)
 }
@@ -76,25 +96,27 @@ function compareAndLike(){
 }
 
 function videoLiked() {
-  return $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > button").attr("aria-pressed") == "true";
+  var yesliked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > button").attr("aria-pressed") == "true";
+  var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > button").attr("aria-pressed") == "true";
+  return yesliked || disLiked;
 }
 
 function creatorIsWhitelisted(creatorName) {
-  var creatorList = $("#creatorList").val();
-  if (creatorList.indexOf(creatorName) >= 0) return true;
+  var creatorList = localStorage.getItem("creatorList");
+  if (creatorList && creatorList.indexOf(creatorName) >= 0) return true;
   return false;
 }
 
 function addCreatorToWhitelist(valueToAdd) {
-  var creatorList = $("#creatorList").val();
-  $("#creatorList").val(creatorList + ";" + valueToAdd);
+  var creatorList = localStorage.getItem("creatorList");
+  localStorage.setItem("creatorList" , (creatorList + ";" + valueToAdd));
 }
 
 function removeCreatorFromWhitelist(valueToRemove) {
-  var creatorList = $("#creatorList").val();
+  var creatorList = localStorage.getItem("creatorList");
   var cutStart = creatorList.indexOf(valueToRemove);
   var cutStop = cutStart + valueToRemove.length + 1;
-  $("#creatorList").val(creatorList.substring(0,cutStart) + creatorList.substring(cutStop, creatorList.length));
+  localStorage.setItem("creatorList", creatorList.substring(0,cutStart) + creatorList.substring(cutStop, creatorList.length));
 }
 
 function thresholdReached() {
@@ -112,32 +134,8 @@ function likeVideo(){
   $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a")[0].click();
 }
 
-function createCookie(name, value, days) {
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    var expires = "; expires=" + date.toGMTString();
-  }
-  else var expires = "";
-  document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function updateCookie(name){
-  var cookie = readCookie(name);
-}
-
 function log(tag, o){
+  return;
   var date = new Date();
   var tstamp = date.getMinutes() +":"+ date.getSeconds() + ":" + date.getMilliseconds();
   if (o instanceof Object) {
