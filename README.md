@@ -1,4 +1,4 @@
-#YouTUBE Auto Like, Level 2
+# YouTUBE Auto Like, Level 2
 
 With this extension you can show your support for your favourite creators by adding their channel to your locally (in `localStorage`) managed list.
 You will never forget to like a video you watched over a certain percentage that you can also setup.
