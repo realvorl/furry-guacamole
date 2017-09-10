@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Show some love and autolike.",
-  "description": "Will autolike videos you watched over 80% of their runtime",
-  "version": "1.1",
+  "name": "YouTube Auto Like, Level 2",
+  "description": "Will auto like videos you watched over a certain percent of their runtime",
+  "version": "1.2",
 
   "browser_action": {
    "default_icon": "icon.png"
