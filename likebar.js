@@ -3,6 +3,7 @@ $(document).ready(function() {
     var moreLogging = false;
 
     populateSelect();
+    reloadLastStoredValues();
 
     $("#maindiv").css("background-color","#f1f1f1");
     $("#maindiv .toggleD").prop("disabled", true);
@@ -10,10 +11,11 @@ $(document).ready(function() {
     $("#ranger").change(function(){
       var rangeValue = $("#ranger").val();
       $("#threshold").text(rangeValue + "%");
-      localStorage.setItem("threshold", rangeValue)
+      localStorage.setItem("likeThreshold", rangeValue)
     })
 
     $("#likeExtButtonDelegate").click(function(){
+
       if($(this).hasClass("likeOFF") && !areYouWatching()) {
         alert("Start watching a video before you enable me.");
         return;
@@ -23,25 +25,7 @@ $(document).ready(function() {
         alert("Please sign in first. You can not like videos annonimously.");
         return;
       }
-
-      $(this).toggleClass("likeON");
-      $(this).toggleClass("likeOFF");
-      $("#thea").toggleClass("ON");
-
-      if($(this).hasClass("likeOFF")){
-        $("#maindiv").css("background-color","#f1f1f1");
-        $("#maindiv .toggleD").prop("disabled", true);
-        clearInterval(likeInterval);
-        $(this).text("AutoLIKE OFF");
-      } else {
-        var videoPlaing = $("video");
-        $("#maindiv").css("background-color","#ffffff");
-        $("#maindiv .toggleD").prop("disabled", false);
-        $(this).text("AutoLIKE ON");
-        likeInterval = setInterval(function(){
-          compareAndLike();
-        }, 1000);
-      }
+      toggleExtensionActivity($(this));
       //likeButton[0].click();
       //log("","liked at: " + calculatePercentage() + " %");
     });
@@ -76,6 +60,42 @@ $(document).ready(function() {
       if($("#list").children().length > 1) option.remove();
     });
 });
+
+function reloadLastStoredValues(){
+
+  var activeExtension = localStorage.getItem("autoLIKEactive");
+  var likeThreshold = localStorage.getItem("likeThreshold");
+  if (activeExtension == "true") {
+    toggleExtensionActivity($("#likeExtButtonDelegate"));
+  }
+  if (likeThreshold) {
+    $("#ranger").val(parseInt(likeThreshold));
+    $("#threshold").text(likeThreshold + "%");
+  }
+}
+
+function toggleExtensionActivity(jQObject){
+  jQObject.toggleClass("likeON");
+  jQObject.toggleClass("likeOFF");
+  $("#thea").toggleClass("ON");
+
+  if(jQObject.hasClass("likeOFF")){
+    $("#maindiv").css("background-color","#f1f1f1");
+    $("#maindiv .toggleD").prop("disabled", true);
+    clearInterval(likeInterval);
+    jQObject.text("AutoLIKE OFF");
+    localStorage.setItem("autoLIKEactive","false");
+  } else {
+    var videoPlaing = $("video");
+    $("#maindiv").css("background-color","#ffffff");
+    $("#maindiv .toggleD").prop("disabled", false);
+    jQObject.text("AutoLIKE ON");
+    localStorage.setItem("autoLIKEactive","true");
+    likeInterval = setInterval(function(){
+      compareAndLike();
+    }, 1000);
+  }
+}
 
 function areYouWatching(){
   return (window.location.href.indexOf("/watch?") > 0);

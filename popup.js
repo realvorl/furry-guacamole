@@ -17,6 +17,14 @@ function mainAnchor(){
   oLink.text = "❤";
   oLink.id = "thea";
 
+  var extensionActive = localStorage.getItem("autoLIKEactive");
+
+  if (extensionActive == "true") {
+    oLink.className = "ON";
+    $("#maindiv").css("background-color","#ffffff");
+    $("#maindiv .toggleD").prop("disabled", false);
+  }
+
   oLink.onclick = function(){
     var toggle = $("#maindiv").css("display");
     if(toggle == "none") {
