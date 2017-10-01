@@ -51,6 +51,7 @@ on the right gauge you can see the current runtime of the video you are watching
 
 ## Configurations are stored locally
 
-- remember that everything works only in your browser, nothing gets stored anywhere else, except your youtube account.
+- remember that everything works only in your browser, nothing gets stored anywhere else, except your youtube account 
+meaning that the Like you give a video will be saved by Google to your Youtube account (obviously). 
 - once you clear your browser history (`localStorage`) you loose your channel / creator list will be lost.
  
