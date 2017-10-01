@@ -39,6 +39,7 @@ $(document).ready(function() {
     });
 
     $("#addToList").click(function(){
+      if (!areYouWatching()) return;
       var list = $("#list");
       var valueToAdd = getCreatorName();
       if (!creatorIsWhitelisted(valueToAdd)) {
@@ -141,7 +142,7 @@ function compareAndLike(){
 function videoLiked() {
   var yesliked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > button").attr("aria-pressed") == "true";
   if (yesliked) {
-    $("#progress").css("background-color", "#539ad0");
+    $("#progress").css("background-color", "#5F9EA0");
   }
   var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > button").attr("aria-pressed") == "true";
   return yesliked || disLiked;
