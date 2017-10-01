@@ -5,31 +5,32 @@
     <link rel="stylesheet" type="text/css" href="popup.css">
   </head>
   <body>
-    <div class="toppler" id="maindiv" style="width: 100%; display: none; padding-bottom: 5px; white-space: nowrap;">
+    <div class="toppler" id="maindiv" style="width: 100%; display: block; padding-bottom: 5px; white-space: nowrap;">
       <!--button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button-->
       <table style="position: absolute; left: 35px; padding-top: 3px;">
         <tr>
           <td>
             <button class="likeOFF" id="likeExtButtonDelegate" style="width: 120px"> AutoLIKE OFF </button>
           </td>
-          <td class="ytext" style="padding-right: 10px; padding-left: 10px; background-color: #f1f1f1; border-radius:8px 0 0 0;">
-            <span > threshold </span>
-          </td>
+          <td style="padding-right: 20px;"></td>
           <td>
-              <input class="toggleD" type="range" id="ranger" min="50" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
-              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; border-radius:8px 0 0 0;" readonly size="2"> 80% </span>
-              <span type="text" id="progress" class="ytext" style="padding: 5px 10px;  background-color: #f1a1a1; border-radius:0 8px 0 0;" readonly size="2"> --% </span>
+              <input class="toggleD" type="range" id="ranger" min="10" max="90" value="80" style="vertical-align: middle; background: red;" step="5"/>
+          </td>
+            <td style="padding-right: 20px;"></td>
+          <td>
+              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; " readonly size="2"> 80% </span>
+          </td>
+              <td style="padding-right: 20px;"></td>
+          <td>
+              <span type="text" id="progress" class="ytext" style="padding: 5px 10px;  background-color: #f1a1a1; " readonly size="2"> --% </span>
           </td>
           <td style="padding-right: 20px;"></td>
           <td style="padding-right: 5px;">
-              <button class="set toggleD" id="addToList" style="border-radius:8px 0 0 0;"> + </button>
+              <button class="set toggleD" id="addToList" style="margin-right: 5px;"> + </button>
               <select class="ytext toggleD" id="list" style="height: 24px; width:180px; margin: -5px;">
                 <option disabled selected value> local creators list </option>
               </select>
-              <button class="set toggleD" id="remFrList" style="border-radius:0 8px 0 0;"> - </button>
-          </td>
-          <td class="ytext" style="padding-left: 10px; padding-right: 10px; background-color: #f1f1f1 ; border-radius:0 8px 0 0;">
-            <span > creators </span>
+              <button class="set toggleD" id="remFrList" style="margin-left: 5px;"> - </button>
           </td>
         </tr>
       </table>

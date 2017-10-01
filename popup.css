@@ -1,5 +1,5 @@
 .ytext{
-  box-shadow: inset 1px 4px 9px -6px;
+  /*box-shadow: inset 1px 4px 9px -6px;*/
   font-size: 14px;
   font-weight: 500;
   color: #222;
@@ -25,7 +25,7 @@
 }
 
 td {
-  border-radius: 6px;
+  /*border-radius: 6px;*/
 }
 
 #thea {
@@ -37,16 +37,16 @@ td {
   font-size: 20px;
   font-weight: bolder;
   text-align : center;
-  background-color : #FFFFFF;
+  background-color : rgb(241,241,241);
   color : #1f1f1f;
-  border-radius : 20px;
+  border-radius : 25px;
   z-index : 99999;
   cursor : pointer;
   opacity : .5;
 }
 
 #thea.ON {
-  background-color : #F00;
+  background-color : #5F9EA0;
   color : #FFF;
   padding-right: 2px;
 }
@@ -64,16 +64,16 @@ button{
 button.likeON {
   font-weight: bold;
   padding: 3px 2px;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   color: white;
-  background-color: #FE0E0E;
+  background-color: #5F9EA0;
 }
 button.likeOFF {
   font-weight: bold;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   padding: 3px 2px;
   color: white;
-  background-color: #B1B1B1;
+  background-color: #f1a1a1;
 }
 button.set {
   font-weight: bold;
@@ -96,7 +96,7 @@ input[type=range]::-webkit-slider-runnable-track {
  cursor: pointer;
  animate: 0.2s;
  box-shadow: 1px 1px 1px #000000;
- background: #74A9D8;
+ background: #5F9EA0;
  border-radius: 1px;
  border: 0px solid #010101;
 }
@@ -112,14 +112,14 @@ input[type=range]::-webkit-slider-thumb {
  margin-top: -8px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
- background: #F10202;
+ background: #5F9EA0;
 }
 input[type=range]::-moz-range-track {
  height: 4px;
  cursor: pointer;
  animate: 0.2s;
  box-shadow: 1px 1px 1px #000000;
- background: #74A9D8;
+ background: #5F9EA0;
  border-radius: 1px;
  border: 0px solid #010101;
 }
@@ -141,13 +141,13 @@ input[type=range]::-ms-track {
  color: transparent;
 }
 input[type=range]::-ms-fill-lower {
- background: #74A9D8;
+ background: #5F9EA0;
  border: 0px solid #010101;
  border-radius: 2px;
  box-shadow: 1px 1px 1px #000000;
 }
 input[type=range]::-ms-fill-upper {
- background: #74A9D8;
+ background: #5F9EA0;
  border: 0px solid #010101;
  border-radius: 2px;
  box-shadow: 1px 1px 1px #000000;
@@ -163,8 +163,8 @@ input[type=range]::-ms-thumb {
  cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
- background: #74A9D8;
+ background: #5F9EA0;
 }
 input[type=range]:focus::-ms-fill-upper {
- background: #74A9D8;
+ background: #5F9EA0;
 }
