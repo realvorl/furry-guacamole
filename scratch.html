@@ -1,0 +1,29 @@
+var addbtn = document.createElement("input")
+addbtn.type = "button"
+
+addbtn.innerText = "+"
+var rembtn = document.createElement("input")
+rembtn.type = "button"
+addbtn.innerText = "-"
+
+var theDom = document.getElementsByTagName("body")
+
+var blendin = document.createElement("div")
+blendin.appendChild(addbtn)
+blendin.appendChild(rembtn)
+
+blendin.style.width = "60px"
+blendin.style.top = "20px"
+blendin.style.position = "absolute"
+blendin.style.zIndex = "100000"
+
+
+creatorIcon.onmouseover = function (e) {blendin.style.left=this.offsetLeft+35+'px'; blendin.style.top=this.offsetTop-40+'px'; blendin.style.display="block";}
+addbtn.onclick = function (e) {blendin.style.display="none";}
+rembtn.onclick = function (e) {blendin.style.display="none";}
+
+
+<div style="width: 60px; height: 20px; position: absolute; z-index: 100000;">
+  <input type="button">+</input>
+  <input type="button">-</input>
+</div>

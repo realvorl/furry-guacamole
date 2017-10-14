@@ -156,14 +156,17 @@ function creatorIsWhitelisted(creatorName) {
 
 function addCreatorToWhitelist(valueToAdd) {
   var creatorList = localStorage.getItem("creatorList");
-  localStorage.setItem("creatorList" , (creatorList + ";" + valueToAdd));
+  var creatorArray = creatorList.split(";");
+  creatorArray.push(valueToAdd);
+  sortCreators(creatorArray);
+  localStorage.setItem("creatorList", creatorArray.join(";"));
 }
 
 function removeCreatorFromWhitelist(valueToRemove) {
   var creatorList = localStorage.getItem("creatorList");
-  var cutStart = creatorList.indexOf(valueToRemove);
-  var cutStop = cutStart + valueToRemove.length + 1;
-  localStorage.setItem("creatorList", creatorList.substring(0,cutStart) + creatorList.substring(cutStop, creatorList.length));
+  var creatorArray = creatorList.split(";");
+  creatorArray.filter(function(creator){return !(creator==valueToRemove)});
+  localStorage.setItem("creatorList", creatorArray);
 }
 
 function thresholdReached() {
@@ -191,6 +194,22 @@ function log(tag, o){
     return;
   }
   console.log("###likebar#"+tstamp+"> " + tag +": "+ o)
+}
+
+function sortCreators(array){
+  if (array) {
+    array.sort(ascending)
+  }
+}
+
+function ascending(a, b){
+  var nameA = a.toUpperCase();
+  var nameB = b.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  } else {
+    return 1
+  }
 }
 
 log("", "likebar.js - loaded!");
