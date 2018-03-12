@@ -1,18 +1,16 @@
 $(document).ready(function() {
-    var likeinterval = null;
-    var moreLogging = false;
 
     populateSelect();
     reloadLastStoredValues();
 
     $("#maindiv").css("background-color","#f1f1f1");
-    $("#maindiv .toggleD").prop("disabled", true);
+    $("#maindiv").find(".toggleD").prop("disabled", true);
 
     $("#ranger").change(function(){
       var rangeValue = $("#ranger").val();
       $("#threshold").text(rangeValue + "%");
       localStorage.setItem("likeThreshold", rangeValue)
-    })
+    });
 
     $("#likeExtButtonDelegate").click(function(){
 
@@ -20,8 +18,8 @@ $(document).ready(function() {
         alert("Start watching a video before you enable me.");
         return;
       }
-      var signedInElement = $("#buttons > ytd-topbar-menu-button-renderer:nth-child(4)");
-      if (signedInElement == null || signedInElement.length == 0) {
+      var signedInElement = $("#buttons").find("> ytd-topbar-menu-button-renderer:nth-child(4)");
+      if (signedInElement == null || signedInElement.length === 0) {
         alert("Please sign in first. You can not like videos annonimously.");
         return;
       }
@@ -32,7 +30,7 @@ $(document).ready(function() {
 
     $("#disLikeExtButtonDelegate").click(function(){
       var videoPlayer = $("video").get(0);
-      var dislikeButton = $("#watch8-sentiment-actions > span > span:nth-child(3) > button");
+      var dislikeButton = $("#watch8-sentiment-actions").find("> span > span:nth-child(3) > button");
       var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
       dislikeButton.click();
       log("","disliked at: " + percentage + " %");
@@ -56,9 +54,9 @@ $(document).ready(function() {
     });
 
     $("#remFrList").click(function(){
-      var option = $("#list > option:selected");
+      var option = $("#list").find("> option:selected");
       removeCreatorFromWhitelist(option.text());
-      if($("#list").children().length > 1) option.remove();
+      if ( $("#list").children().length > 1) option.remove();
     });
 });
 
@@ -66,7 +64,7 @@ function reloadLastStoredValues(){
 
   var activeExtension = localStorage.getItem("autoLIKEactive");
   var likeThreshold = localStorage.getItem("likeThreshold");
-  if (activeExtension == "true") {
+  if (activeExtension === "true") {
     toggleExtensionActivity($("#likeExtButtonDelegate"));
   }
   if (likeThreshold) {
@@ -80,22 +78,22 @@ function toggleExtensionActivity(jQObject){
   jQObject.toggleClass("likeOFF");
   $("#thea").toggleClass("ON");
 
-  if(jQObject.hasClass("likeOFF")){
-    $("#maindiv").css("background-color","#f1f1f1");
-    $("#maindiv .toggleD").prop("disabled", true);
-    clearInterval(likeInterval);
-    jQObject.text("AutoLIKE OFF");
-    localStorage.setItem("autoLIKEactive","false");
-  } else {
-    var videoPlaing = $("video");
-    $("#maindiv").css("background-color","#ffffff");
-    $("#maindiv .toggleD").prop("disabled", false);
-    jQObject.text("AutoLIKE ON");
-    localStorage.setItem("autoLIKEactive","true");
-    likeInterval = setInterval(function(){
-      compareAndLike();
-    }, 1000);
-  }
+    var likeInterval;
+    if (jQObject.hasClass("likeOFF")) {
+        $("#maindiv").css("background-color", "#f1f1f1");
+        $("#maindiv").find(".toggleD").prop("disabled", true);
+        clearInterval(likeInterval);
+        jQObject.text("AutoLIKE OFF");
+        localStorage.setItem("autoLIKEactive", "false");
+    } else {
+        $("#maindiv").css("background-color", "#ffffff");
+        $("#maindiv").find(".toggleD").prop("disabled", false);
+        jQObject.text("AutoLIKE ON");
+        localStorage.setItem("autoLIKEactive", "true");
+        likeInterval = setInterval(function () {
+            compareAndLike();
+        }, 1000);
+    }
 }
 
 function areYouWatching(){
@@ -108,7 +106,7 @@ function populateSelect(){
   if(elemCount == 1){
     var currentList = localStorage.creatorList;
     if(currentList){
-      var creators = currentList.split(";");
+      var creators = currentList.split(",");
       $.each(creators, function(index, value){
         if (value) {
           var truncatedValue = value;
@@ -140,11 +138,11 @@ function compareAndLike(){
 }
 
 function videoLiked() {
-  var yesliked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > button").attr("aria-pressed") == "true";
+  var yesliked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > yt-icon-button").attr("aria-pressed") == "true";
   if (yesliked) {
     $("#progress").css("background-color", "#5F9EA0");
   }
-  var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > button").attr("aria-pressed") == "true";
+  var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > yt-icon-button").attr("aria-pressed") == "true";
   return yesliked || disLiked;
 }
 
@@ -155,16 +153,16 @@ function creatorIsWhitelisted(creatorName) {
 }
 
 function addCreatorToWhitelist(valueToAdd) {
-  var creatorList = localStorage.getItem("creatorList");
-  var creatorArray = creatorList.split(";");
+  var creatorList = localStorage.getItem("creatorList").replace("null,","").trim();
+  var creatorArray = creatorList.split(",");
   creatorArray.push(valueToAdd);
   sortCreators(creatorArray);
-  localStorage.setItem("creatorList", creatorArray.join(";"));
+  localStorage.setItem("creatorList", creatorArray.join(","));
 }
 
 function removeCreatorFromWhitelist(valueToRemove) {
-  var creatorList = localStorage.getItem("creatorList");
-  var creatorArray = creatorList.split(";");
+  var creatorList = localStorage.getItem("creatorList").replace("null,","").trim();
+  var creatorArray = creatorList.split(",");
   creatorArray.filter(function(creator){return !(creator==valueToRemove)});
   localStorage.setItem("creatorList", creatorArray);
 }
