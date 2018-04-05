@@ -155,13 +155,13 @@ function creatorIsWhitelisted(creatorName) {
 function addCreatorToWhitelist(valueToAdd) {
     var creatorList = localStorage.getItem("creatorList");
     if (creatorList) {
-        creatorList.replace("null,", "").trim();
+        creatorList = creatorList.replace("null,", "").trim();
         var creatorArray = creatorList.split(",");
         creatorArray.push(valueToAdd);
         sortCreators(creatorArray);
         localStorage.setItem("creatorList", creatorArray.join(","));
     } else {
-        localStorage.setItem("creatorList","");
+        localStorage.setItem("creatorList",valueToAdd);
     }
 
 }
@@ -169,14 +169,12 @@ function addCreatorToWhitelist(valueToAdd) {
 function removeCreatorFromWhitelist(valueToRemove) {
     var creatorList = localStorage.getItem("creatorList");
     if (creatorList) {
-        creatorList.replace("null,", "").trim();
+        creatorList = creatorList.replace("null,", "").trim();
         var creatorArray = creatorList.split(",");
-        creatorArray.filter(function (creator) {
+        creatorArray = creatorArray.filter(function (creator) {
             return !(creator == valueToRemove)
         });
         localStorage.setItem("creatorList", creatorArray);
-    } else {
-        localStorage.setItem("creatorList", "");
     }
 }
 
