@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(window).ready(function () {
 
     populateSelect();
     reloadLastStoredValues();
@@ -18,11 +18,14 @@ $(document).ready(function () {
             alert("Start watching a video before you enable me.");
             return;
         }
-        var signedInElement = $("#buttons").find("> ytd-topbar-menu-button-renderer:nth-child(4)");
-        if (signedInElement == null || signedInElement.length === 0) {
+        /*
+        var signedInElement = (window.ytInitialData.topbar.desktopTopbarRenderer.topbarButtons[4].topbarMenuButtonRenderer == null);
+        console.log("hot reload is a possibility");
+        if (!signedInElement) {
             alert("Please sign in first. You can not like videos annonimously.");
             return;
         }
+        */
         toggleExtensionActivity($(this));
         //likeButton[0].click();
         //log("","liked at: " + calculatePercentage() + " %");
