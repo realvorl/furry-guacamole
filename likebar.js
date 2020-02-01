@@ -1,3 +1,5 @@
+var currentURL = "";
+var creatorName = "";
 $(window).ready(function () {
 
     populateSelect();
@@ -13,30 +15,15 @@ $(window).ready(function () {
     });
 
     $("#likeExtButtonDelegate").click(function () {
-
-        if ($(this).hasClass("likeOFF") && !areYouWatching()) {
-            alert("Start watching a video before you enable me.");
-            return;
-        }
-        /*
-        var signedInElement = (window.ytInitialData.topbar.desktopTopbarRenderer.topbarButtons[4].topbarMenuButtonRenderer == null);
+        var signedInElement = (document.getElementsByTagName("img")[0].getAttribute("alt").toLowerCase().indexOf("avatar") >= 0);
         console.log("hot reload is a possibility");
         if (!signedInElement) {
             alert("Please sign in first. You can not like videos annonimously.");
             return;
         }
-        */
         toggleExtensionActivity($(this));
         //likeButton[0].click();
         //log("","liked at: " + calculatePercentage() + " %");
-    });
-
-    $("#disLikeExtButtonDelegate").click(function () {
-        var videoPlayer = $("video").get(0);
-        var dislikeButton = $("#watch8-sentiment-actions").find("> span > span:nth-child(3) > button");
-        var percentage = videoPlayer.currentTime / videoPlayer.duration * 100;
-        dislikeButton.click();
-        log("", "disliked at: " + percentage + " %");
     });
 
     $("#addToList").click(function () {
@@ -126,10 +113,20 @@ function populateSelect() {
 }
 
 function getCreatorName() {
-    //#owner-name > a
-    var linkname = $("#owner-name > a")[0].text;
-    var fromIdx = linkname.lastIndexOf("/") + 1;
-    return linkname.substring(fromIdx, linkname.length)
+    content = document.getElementById("meta");
+    allLinks = Array.from(content.getElementsByTagName("a"));
+    allLinks = allLinks.filter(
+            function(inelem){ 
+                if (inelem.href.indexOf("channel")>=0) 
+                    return inelem;
+            }
+        ); 
+    linkname = "";
+    if(allLinks && (allLinks.length > 1)) {
+        linkname = allLinks[1];
+    }
+    creatorName = linkname.innerText;
+    return creatorName;
 }
 
 function compareAndLike() {
@@ -141,12 +138,26 @@ function compareAndLike() {
 }
 
 function videoLiked() {
-    var yesliked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a > yt-icon-button").attr("aria-pressed") == "true";
+    content = document.getElementById("info");
+    allIcons = Array.from(document.getElementsByTagName("button"));
+    allIcons = allIcons.filter(function(inelem){ 
+        if (inelem.hasAttribute("aria-pressed")){ 
+            return inelem;
+        }});
+    allIcons = allIcons.filter(function(inelem){ 
+        if (inelem.getAttribute("aria-label") && inelem.getAttribute("aria-label").startsWith("like this video")){
+             return inelem;
+        }});
+    var yesliked = false;
+    if (allIcons) {
+        yesliked = allIcons[0].getAttribute('aria-pressed') === "true"; 
+    }    
+    
     if (yesliked) {
         $("#progress").css("background-color", "#5F9EA0");
     }
-    var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > yt-icon-button").attr("aria-pressed") == "true";
-    return yesliked || disLiked;
+    // var disLiked = $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a > yt-icon-button").attr("aria-pressed") == "true";
+    return yesliked;// || disLiked;
 }
 
 function creatorIsWhitelisted(creatorName) {
@@ -164,7 +175,7 @@ function addCreatorToWhitelist(valueToAdd) {
         sortCreators(creatorArray);
         localStorage.setItem("creatorList", creatorArray.join(","));
     } else {
-        localStorage.setItem("creatorList",valueToAdd);
+        localStorage.setItem("creatorList", valueToAdd);
     }
 
 }
