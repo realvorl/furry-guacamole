@@ -122,7 +122,7 @@ function getCreatorName() {
             }
         ); 
     linkname = "";
-    if(allLinks && (allLinks.length > 1)) {
+    if(allLinks && (allLinks.length > 0)) {
         linkname = allLinks[1];
     }
     creatorName = linkname.innerText;
