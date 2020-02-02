@@ -113,7 +113,7 @@ function populateSelect() {
 }
 
 function getCreatorName() {
-    content = document.getElementById("meta");
+    content = document.getElementById("meta-contents");
     allLinks = Array.from(content.getElementsByTagName("a"));
     allLinks = allLinks.filter(
             function(inelem){ 
