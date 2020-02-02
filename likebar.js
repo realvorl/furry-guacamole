@@ -123,7 +123,7 @@ function getCreatorName() {
         ); 
     linkname = "";
     if(allLinks && (allLinks.length > 0)) {
-        linkname = allLinks[1];
+        linkname = allLinks[0];
     }
     creatorName = linkname.innerText;
     return creatorName;
