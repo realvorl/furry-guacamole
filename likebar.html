@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="jquery.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="popup.css">
-  </head>
-  <body>
-    <div class="toppler" id="maindiv" style="width: 100%; display: block; padding-bottom: 5px; white-space: nowrap;">
-      <!--button class="dislike" id="disLikeExtButtonDelegate"> DisLike </button-->
-      <table style="position: absolute; left: 35px; padding-top: 3px;">
-        <tr>
-          <td>
-            <button class="likeOFF" id="likeExtButtonDelegate" style="width: 120px"> AutoLIKE OFF </button>
-          </td>
-          <td style="padding-right: 20px;"></td>
-          <td>
-              <input class="toggleD" type="range" id="ranger" min="10" max="90" value="80" style="vertical-align: middle; background: red;" step="1"/>
-          </td>
-            <td style="padding-right: 20px;"></td>
-          <td>
-              <span type="text" id="threshold" class="ytext" style="padding: 5px 10px;  background-color: #f1f1f1; " readonly size="2"> 80% </span>
-          </td>
-              <td style="padding-right: 0 10px 0 10px; font-size: 14px;" class="ytext">≤</td>
-          <td>
-              <span type="text" id="progress" class="ytext" style="padding: 5px 10px;  background-color: #f1a1a1; " readonly size="2"> --% </span>
-          </td>
-          <td style="padding-right: 20px;"></td>
-          <td style="padding-right: 5px;">
-              <button class="set toggleD" id="addToList" style="margin-right: 5px;"> + </button>
-              <select class="ytext toggleD" id="list" style="height: 24px; width:180px; margin: -5px;">
-                <option disabled selected value> local creators list </option>
-              </select>
-              <button class="set toggleD" id="remFrList" style="margin-left: 5px;"> - </button>
-          </td>
-        </tr>
-      </table>
-      <!--button class="set" id="setThreshold">set</button-->
-    </div>
-    <input type="hidden" id="moreLogging" value="false"/>
-    <input type="hidden" id="creatorList" value=""/>
-    <!--video src="video.mp4" controls height="240" width="480" poster="posterimage.jpg">
+
+<head>
+  <script src="jquery.js" type="text/javascript"></script>
+  <script src="popup.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+
+<body>
+  <div class="toppler" id="maindiv"
+    style="display: none; padding-bottom: 7px; white-space: nowrap;">
+    <table style="position: absolute; left: 35px;">
+      <tr>
+        <td style="padding-right: 5px;">
+          <table>
+            <tr>
+              <td style="border-bottom: 1px solid black;">
+                <button class="top" id="addToList"> add </button>
+              </td>
+              <td rowspan="2">
+                <select id="list" >
+                  <option disabled selected value> autolike: creators list </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="left-under">
+                <button class="bottom" id="remFrList"> remove </button>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td rowspan="2">
+                <input class="slider" type="range" id="ranger" min="10" max="90" value="80" step="1" />
+              </td>
+              <td style="border-bottom: 1px solid black;">
+                <span> elapsed: </span>
+                <span id="progress" readonly> --% </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span> threshold: </span>
+                <span id="threshold" readonly> 80% </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+
+
+      </tr>
+    </table>
+  </div>
+  <input type="hidden" id="moreLogging" value="false" />
+  <input type="hidden" id="creatorList" value="" />
+  <!--video src="video.mp4" controls height="240" width="480" poster="posterimage.jpg">
     </video-->
-  </body>
+</body>
+
 </html>
-<script src="likebar.js" type="text/javascript"></script>

@@ -1,8 +1,7 @@
-.ytext{
-  /*box-shadow: inset 1px 4px 9px -6px;*/
-  font-size: 14px;
-  font-weight: 500;
-  color: #222;
+body {
+  font-size: 12px;
+  font-weight: 900;
+  color: black;
 }
 
 .right{
@@ -14,18 +13,14 @@
 }
 
 .toppler{
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   left: 0;
-  width : 100%;
-  height: 35px;
+  width : 640px;
+  height: 55px;
   background-color: #FFFFFF;
   color: #252525;
   z-index: 10;
-}
-
-td {
-  /*border-radius: 6px;*/
 }
 
 #thea {
@@ -46,132 +41,64 @@ td {
 }
 
 #thea.ON {
-  background-color : #5F9EA0;
+  background-color : #0067cf;
   color : #FFF;
   padding-right: 2px;
 }
 
-button{
+button {
+  all:unset; 
+  width: 40px; 
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0px 7px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 3px 2px;
   cursor: pointer;
 }
-button.likeON {
-  outline: none;
-  box-shadow: 0px 0px;
-  border-top: none;
-  border-right: none;
-  box-shadow: none;
-  font-weight: bold;
-  padding: 3px 2px;
-  /*border-radius: 6px;*/
-  color: white;
-  background-color: #5F9EA0;
+
+select {
+  all: unset;
+  height: 24px;
+  font-size: 16px;
+  font-weight: 900;
+  align-items: center;
+  text-align: center;
+  border: solid 1px black;
+  padding: 3px;
+  padding-left: 20px;
 }
-button.likeOFF {
-  outline: none;
-  box-shadow: -3px 3px gray;
-  border-top: none;
-  border-right: none;
-  font-weight: bold;
-  /*border-radius: 6px;*/
-  padding: 3px 2px;
-  color: white;
-  background-color: #1f1f1f;
-}
-button.set {
-  font-weight: bold;
-  padding: 3px 10px ;
-  border-radius: 6px;
-  color: black;
-  background-color: #f1f1f1;
-}
+
 /* INPUT RANGE */
-input[type=range] {
- height: 10px;
- -webkit-appearance: none;
- margin: 10px 0;
+
+.slider {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 30px;
+  outline: none;
+  opacity: 0.7;
+  /*background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));*/
+  background-image: url("chrome-extension://lgfpcmmoaelpegfnoobilhnhldkglock/bars-percent.png"), url("chrome-extension://ijplfhjpajedfhlmkjangheakafhmcmg/bars-percent.png"), url("bars-percent.png");
+  border: 1px solid black;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }
-input[type=range]:focus {
- outline: none;
+
+.slider:hover {
+  opacity: 1;
 }
-input[type=range]::-webkit-slider-runnable-track {
- height: 11px;
- cursor: pointer;
- animate: 0.2s;
- box-shadow: 1px 1px 1px #000000;
- background: #5F9EA0;
- border-radius: 1px;
- border: 0px solid #010101;
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+  background-image: url("chrome-extension://lgfpcmmoaelpegfnoobilhnhldkglock/like.png"), url("chrome-extension://ijplfhjpajedfhlmkjangheakafhmcmg/like.png"), url("like.png");
 }
-input[type=range]::-webkit-slider-thumb {
- box-shadow: 1px 1px 1px #000031;
- border: 1px solid #00001E;
- height: 6px;
- width: 6px;
- border-radius: 15px;
- background: #FFFFFF;
- cursor: pointer;
- -webkit-appearance: none;
- margin-top: -8px;
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
- background: #5F9EA0;
-}
-input[type=range]::-moz-range-track {
- height: 4px;
- cursor: pointer;
- animate: 0.2s;
- box-shadow: 1px 1px 1px #000000;
- background: #5F9EA0;
- border-radius: 1px;
- border: 0px solid #010101;
-}
-input[type=range]::-moz-range-thumb {
- box-shadow: 1px 1px 1px #000031;
- border: 1px solid #00001E;
- height: 26px;
- width: 26px;
- border-radius: 15px;
- background: #FFFFFF;
- cursor: pointer;
-}
-input[type=range]::-ms-track {
- height: 11px;
- cursor: pointer;
- animate: 0.2s;
- background: transparent;
- border-color: transparent;
- color: transparent;
-}
-input[type=range]::-ms-fill-lower {
- background: #5F9EA0;
- border: 0px solid #010101;
- border-radius: 2px;
- box-shadow: 1px 1px 1px #000000;
-}
-input[type=range]::-ms-fill-upper {
- background: #5F9EA0;
- border: 0px solid #010101;
- border-radius: 2px;
- box-shadow: 1px 1px 1px #000000;
-}
-input[type=range]::-ms-thumb {
- margin-top: 1px;
- box-shadow: 1px 1px 1px #000031;
- border: 1px solid #00001E;
- height: 26px;
- width: 26px;
- border-radius: 15px;
- background: #FFFFFF;
- cursor: pointer;
-}
-input[type=range]:focus::-ms-fill-lower {
- background: #5F9EA0;
-}
-input[type=range]:focus::-ms-fill-upper {
- background: #5F9EA0;
+
+.slider::-moz-range-thumb {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+  background-image: url("chrome-extension://lgfpcmmoaelpegfnoobilhnhldkglock/like.png"), url("chrome-extension://ijplfhjpajedfhlmkjangheakafhmcmg/like.png"), url("like.png");
 }

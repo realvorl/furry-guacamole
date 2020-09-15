@@ -1,47 +1,43 @@
-if (chrome.extension){
+var currentURL = "";
+var creatorName = "";
+var likeInterval = null;
+var wasInitialised = false;
+
+if (chrome.extension) {
+  //console.log("chrome.extension");
   var url = chrome.extension.getURL('likebar.html');
   var height = "40px";
-  var div = "<div w3-include-html='"+url+"'></div>";
-
+  var div = "<div w3-include-html='" + url + "'></div>";
+  //var script = "<script src=\""+scriptUrl+"\" type=\"text/javascript\"></script>\"";
   $('body').prepend(div);
   w3.includeHTML();
-  $(document).ready(function(){
-      $('body').append(mainAnchor());
+  $(document).ready(function () {
+    //console.log("popup.js:: document ready");
+    $('body').append(mainAnchor());
   });
 }
 
-function mainAnchor(){
+function mainAnchor() {
   var oLink = document.createElement("a");
 
   oLink.title = "show / hide settings"
   oLink.text = "❤";
   oLink.id = "thea";
 
-  var extensionActive = localStorage.getItem("autoLIKEactive");
+  oLink.onclick = function () {
 
-  if (extensionActive == "true") {
-    oLink.className = "ON";
-    $("#maindiv").css("background-color","#ffffff");
-    $("#maindiv .toggleD").prop("disabled", false);
-  }
-
-  oLink.onclick = function(){
+    //console.log("popup.js:: onclick ❤ ");
     var toggle = $("#maindiv").css("display");
-    if(toggle == "none") {
-      $("#maindiv").show("slow","swing", function(){
+    if (toggle == "none") {
+      //console.log("popup.js:: doing it all");
+      doItAll();
+      $("#maindiv").show("slow", "swing", function () {
         $('ytd-app').css({
           '-webkit-transform': 'translateY(40px)'
         });
       });
-      $("input#search").focus(function(){
-        $("#maindiv").hide("slow","swing", function(){
-          $('ytd-app').css({
-            '-webkit-transform': 'translateY(0)'
-          });
-        });
-      })
     } else {
-      $("#maindiv").hide("slow","swing", function(){
+      $("#maindiv").hide("slow", "swing", function () {
         $('ytd-app').css({
           '-webkit-transform': 'translateY(0)'
         });
@@ -49,4 +45,194 @@ function mainAnchor(){
     }
   }
   return oLink;
+}
+
+function doItAll() {
+
+  //console.log("likebar.js:: window.ready")
+  if (wasInitialised) {
+    return;
+  } else {
+    wasInitialised = true;
+  }
+
+  populateSelect();
+  reloadLastStoredValues();
+
+  document.getElementById("ranger").addEventListener("input", function () {
+    var rangeValue = $("#ranger").val();
+    $("#threshold").text(rangeValue + "%");
+    localStorage.setItem("likeThreshold", rangeValue)
+  });
+
+  if (!likeInterval) {
+    likeInterval = setInterval(function () {
+      compareAndLike();
+    }, 1000);
+  }
+
+  $("#addToList").click(function () {
+    if (!areYouWatching()) {
+      alert("This only works when you are watching a video");
+      return;
+    }
+    var list = $("#list");
+    var valueToAdd = getCreatorName();
+    if (creatorIsWhitelisted(valueToAdd)) {
+      alert(valueToAdd + " is already on your AUTOLIKE creator list")
+      return;
+    } else {
+      addCreatorToWhitelist(valueToAdd);
+    }
+    //console.log("will add:" + valueToAdd);
+    var activeOption = new Option(valueToAdd);
+    activeOption.setAttribute("selected", "true");
+    list.append(activeOption);
+  });
+
+  $("#remFrList").click(function () {
+    var option = $("#list").find("> option:selected");
+    removeCreatorFromWhitelist(option.text());
+    if ($("#list").children().length > 0) option.remove();
+  });
+}
+
+function reloadLastStoredValues() {
+
+  var likeThreshold = localStorage.getItem("likeThreshold");
+
+  if (likeThreshold) {
+    $("#ranger").val(parseInt(likeThreshold));
+    $("#threshold").text(likeThreshold + "%");
+  }
+
+}
+
+function areYouWatching() {
+  return (window.location.href.indexOf("/watch?") > 0);
+}
+
+function populateSelect() {
+  var select = $("#list");
+  var elemCount = select.children().length;
+  if (elemCount == 1) {
+    var currentList = localStorage.creatorList;
+    if (currentList) {
+      var creators = currentList.split(",");
+      $.each(creators, function (index, value) {
+        if (value) {
+          var option = new Option(value);
+          select.append(option);
+          //console.log(index + ": " + value);
+        }
+      });
+    }
+  }
+}
+
+function getCreatorName() {
+  chelment = document.getElementById("meta-contents");
+  links = Array.from(chelment.getElementsByTagName("a"));
+  ret = "";
+  for (i in links) {
+    link = links[i];
+    if (link.text)
+      if (link.href.indexOf("channel") > 0) {
+        //console.log(link.text);
+        ret = link.text;
+        break;
+      }
+  }
+  return ret;
+}
+
+function compareAndLike() {
+  if (!areYouWatching()) return;
+  if (thresholdReached() && !videoLiked() && creatorIsWhitelisted(getCreatorName())) {
+    likeVideo();
+  }
+}
+
+function videoLiked() {
+  content = document.getElementById("info");
+  allIcons = Array.from(document.getElementsByTagName("button"));
+  allIcons = allIcons.filter(function (inelem) {
+    if (inelem.hasAttribute("aria-pressed")) {
+      return inelem;
+    }
+  });
+  allIcons = allIcons.filter(function (inelem) {
+    if (inelem.getAttribute("aria-label") && inelem.getAttribute("aria-label").startsWith("like this video")) {
+      return inelem;
+    }
+  });
+  var yesliked = false;
+  if (allIcons) {
+    yesliked = allIcons[0].getAttribute('aria-pressed') === "true";
+  }
+  return yesliked;
+}
+
+function creatorIsWhitelisted(creatorName) {
+  var creatorList = localStorage.getItem("creatorList");
+  if (creatorList && creatorList.indexOf(creatorName) >= 0) return true;
+  return false;
+}
+
+function addCreatorToWhitelist(valueToAdd) {
+  var creatorList = localStorage.getItem("creatorList");
+  if (creatorList) {
+    creatorList = creatorList.replace("null,", "").trim();
+    var creatorArray = creatorList.split(",");
+    creatorArray.push(valueToAdd);
+    sortCreators(creatorArray);
+    localStorage.setItem("creatorList", creatorArray.join(","));
+  } else {
+    localStorage.setItem("creatorList", valueToAdd);
+  }
+
+}
+
+function removeCreatorFromWhitelist(valueToRemove) {
+  var creatorList = localStorage.getItem("creatorList");
+  if (creatorList) {
+    creatorList = creatorList.replace("null,", "").trim();
+    var creatorArray = creatorList.split(",");
+    creatorArray = creatorArray.filter(function (creator) {
+      return !(creator == valueToRemove)
+    });
+    localStorage.setItem("creatorList", creatorArray);
+  }
+}
+
+function thresholdReached() {
+  var thresholdCurrent = parseInt($("#ranger").val());
+  var videoCurrent = calculatePercentage();
+  $("#progress").text(videoCurrent.toFixed(1) + "%");
+  return thresholdCurrent < videoCurrent;
+}
+
+function calculatePercentage() {
+  var videoPlayer = $("video").get(0);
+  return videoPlayer.currentTime / videoPlayer.duration * 100;
+}
+
+function likeVideo() {
+  $("#top-level-buttons > ytd-toggle-button-renderer:nth-child(1) > a")[0].click();
+}
+
+function sortCreators(array) {
+  if (array) {
+    array.sort(ascending)
+  }
+}
+
+function ascending(a, b) {
+  var nameA = a.toUpperCase();
+  var nameB = b.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  } else {
+    return 1
+  }
 }
