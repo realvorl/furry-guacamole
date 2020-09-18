@@ -2,6 +2,7 @@ var currentURL = "";
 var creatorName = "";
 var likeInterval = null;
 var wasInitialised = false;
+var watchdog = null;
 
 if (chrome.extension) {
   //console.log("chrome.extension");
@@ -15,12 +16,23 @@ if (chrome.extension) {
     //console.log("popup.js:: document ready");
     $('body').append(mainAnchor());
   });
+
+  watchdog = setInterval(function () {
+    if (wasInitialised) {
+      clearInterval(watchdog);
+      console.log("AUTOLIKE:: Initialised!");
+    }
+    if ($("#ranger")) {
+      doItAll();
+      wasInitialised = true;
+    } 
+  }, 1000);
 }
 
 function mainAnchor() {
   var oLink = document.createElement("a");
 
-  oLink.title = "show / hide settings"
+  oLink.title = "AUTOlike v2 Settings.";
   oLink.text = "❤";
   oLink.id = "thea";
 
@@ -30,7 +42,6 @@ function mainAnchor() {
     var toggle = $("#maindiv").css("display");
     if (toggle == "none") {
       //console.log("popup.js:: doing it all");
-      doItAll();
       $("#maindiv").show("slow", "swing", function () {
         $('ytd-app').css({
           '-webkit-transform': 'translateY(40px)'
@@ -72,6 +83,7 @@ function doItAll() {
   }
 
   $("#addToList").click(function () {
+    doItAll
     if (!areYouWatching()) {
       alert("This only works when you are watching a video");
       return;
@@ -154,18 +166,8 @@ function compareAndLike() {
 }
 
 function videoLiked() {
-  content = document.getElementById("info");
-  allIcons = Array.from(document.getElementsByTagName("button"));
-  allIcons = allIcons.filter(function (inelem) {
-    if (inelem.hasAttribute("aria-pressed")) {
-      return inelem;
-    }
-  });
-  allIcons = allIcons.filter(function (inelem) {
-    if (inelem.getAttribute("aria-label") && inelem.getAttribute("aria-label").startsWith("like this video")) {
-      return inelem;
-    }
-  });
+  menuContainer = document.getElementById("menu-container");
+  allIcons = Array.from(menuContainer.getElementsByTagName("button"));
   var yesliked = false;
   if (allIcons) {
     yesliked = allIcons[0].getAttribute('aria-pressed') === "true";
