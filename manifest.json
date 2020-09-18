@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "YouTube Auto Like, Level 2",
-  "description": "Will auto like videos you watched over a certain percent of their runtime",
-  "version": "1.6.0",
+  "description": "Will auto like videos you watched, longer than certain percent of their runtime. This threshold you can control.",
+  "version": "1.6.1",
   "browser_action": {
     "default_icon": "icon.png"
   },
